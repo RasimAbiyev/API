@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
+    'django_celery_beat',
     'drf_yasg',
     'employees',
 ]
@@ -56,6 +57,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'employee_management.urls'
+
+# AUTH_USER_MODEL = 'employees.User'
 
 TEMPLATES = [
     {
@@ -79,12 +82,12 @@ WSGI_APPLICATION = 'employee_management.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # settings.py
 
@@ -106,22 +109,38 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
+# settings.py
+
+import os
+from celery import Celery
+
+# Celery configuration
+CELERY_BROKER_URL = 'redis://redis:6379/0'  # Points to the Redis service in Docker
+CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+broker_connection_retry_on_startup = True
+
 LANGUAGE_CODE = 'az'
-USE_I18N = True
+LANGUAGES = [
+    ('az', 'Azerbaijani'),
+    ('en', 'English'),
+]
 LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
 
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'employee',
-#         'USER': 'postgres',
-#         'PASSWORD': 'postgres',
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('DATABASE_NAME', 'employee_management'),
+        'USER': os.environ.get('DATABASE_USER', 'postgres'),
+        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'postgres'),
+        'HOST': os.environ.get('DATABASE_HOST', 'localhost'),  # Change this to 'db'
+        'PORT': '5432',  # Default PostgreSQL port
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -149,10 +168,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 TIME_ZONE = 'UTC'
 
-# USE_I18N = True
+USE_I18N = True
 
 USE_TZ = True
 
+from datetime import timedelta
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
+}
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

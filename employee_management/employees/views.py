@@ -40,7 +40,7 @@ class ApiRootView(APIView):
         })
 
 from rest_framework_simplejwt.views import TokenObtainPairView
-from django.contrib.auth.models import User
+from .models import User
 from rest_framework import permissions
 from rest_framework import generics
 from rest_framework.response import Response
@@ -48,7 +48,7 @@ from rest_framework import status
 
 from rest_framework import generics, status
 from rest_framework.response import Response
-from django.contrib.auth.models import User
+from .models import User
 from .serializers import UserSerializer
 
 class RegisterView(generics.CreateAPIView):

@@ -1,11 +1,21 @@
-FROM python:3.10
+# Use the official Python image
+FROM python:3.9-slim
 
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
+# Set the working directory
 WORKDIR /app
 
-COPY requirements.txt /app/
+# Install dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . /app/
+# Copy the project files
+COPY . .
+
+# Expose the port
+EXPOSE 8000
+
+RUN adduser --disabled-password celeryuser
+USER celeryuser
+
+# Start the server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
