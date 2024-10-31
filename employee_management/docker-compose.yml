@@ -1,4 +1,4 @@
-# version: '3.9'  # Updated to a more recent version
+version: '3.9'
 
 services:
   db:
@@ -47,7 +47,7 @@ services:
       - db
     networks:
       - app_network
-    user: "1000:1000"  # Run as non-root user
+    user: "1000:1000"
 
   adminer:
     image: adminer
