@@ -16,6 +16,7 @@ from datetime import timedelta
 from celery.schedules import crontab
 from celery import Celery
 
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-n822@d9d7*)!tpz4%huis+p(=&kh(&#x8)f3#kel@sper+89d2')
@@ -33,10 +34,12 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'django_celery_beat',
     'drf_yasg',
+    'corsheaders',
     'employees',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -45,6 +48,27 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'employees.middleware.BlockedIPMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    # "http://localhost:3000",
+    # "https://your-frontend-domain.com",
+]
+
+CORS_ALLOW_METHODS = [
+    "GET",
+    "POST",
+    "PUT",
+    "PATCH",
+    "DELETE",
+    "OPTIONS",
+]
+
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "authorization",
+    "x-csrftoken",
+    "accept",
 ]
 
 TEMPLATES = [
@@ -64,9 +88,12 @@ TEMPLATES = [
 ]
 
 ROOT_URLCONF = 'employee_management.urls'
+
 WSGI_APPLICATION = 'employee_management.wsgi.application'
 
-# Database
+import os
+
+# Database settings
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -74,9 +101,18 @@ DATABASES = {
         'USER': os.environ.get('DATABASE_USER', 'postgres'),
         'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'postgres'),
         'HOST': os.environ.get('DATABASE_HOST', 'localhost'),
-        'PORT': '5432',
+        'PORT': os.environ.get('DATABASE_PORT', '5432'),
     }
 }
+
+# Email settings
+EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.example.com')  # Default SMTP server
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))  # Default SMTP port
+EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
+EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False') == 'True'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'your-email@example.com')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'your-email-password')
 
 # REST Framework and JWT settings
 REST_FRAMEWORK = {
@@ -87,6 +123,7 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
 }
