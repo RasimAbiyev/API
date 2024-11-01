@@ -19,7 +19,7 @@ from celery import Celery
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-n822@d9d7*)!tpz4%huis+p(=&kh(&#x8)f3#kel@sper+89d2')
+SECRET_KEY = os.getenv('SECRET_KEY', 'z$)&ue5ndhxbg0_6eu)%72biwk6net9fd23b28kxpf33kiqua@')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['*']
 
@@ -91,8 +91,6 @@ ROOT_URLCONF = 'employee_management.urls'
 
 WSGI_APPLICATION = 'employee_management.wsgi.application'
 
-import os
-
 # Database settings
 DATABASES = {
     'default': {
@@ -107,8 +105,8 @@ DATABASES = {
 
 # Email settings
 EMAIL_BACKEND = os.environ.get('EMAIL_BACKEND', 'django.core.mail.backends.smtp.EmailBackend')
-EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.example.com')  # Default SMTP server
-EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))  # Default SMTP port
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.example.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', 587))
 EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS', 'True') == 'True'
 EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL', 'False') == 'True'
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'your-email@example.com')
