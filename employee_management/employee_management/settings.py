@@ -20,7 +20,7 @@ from celery import Celery
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'z$)&ue5ndhxbg0_6eu)%72biwk6net9fd23b28kxpf33kiqua@')
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = True
 ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
