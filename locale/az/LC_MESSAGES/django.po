@@ -1,0 +1,107 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-11-06 20:34+0400\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: .\employees\models.py:6
+msgid "Department Name"
+msgstr ""
+
+#: .\employees\models.py:14 .\employees\models.py:22 .\employees\models.py:37
+msgid "Department"
+msgstr ""
+
+#: .\employees\models.py:15
+msgid "Departments"
+msgstr ""
+
+#: .\employees\models.py:18
+msgid "Position Name"
+msgstr ""
+
+#: .\employees\models.py:19
+msgid "Salary"
+msgstr ""
+
+#: .\employees\models.py:28 .\employees\models.py:38
+msgid "Position"
+msgstr ""
+
+#: .\employees\models.py:29
+msgid "Positions"
+msgstr ""
+
+#: .\employees\models.py:32
+msgid "Name"
+msgstr ""
+
+#: .\employees\models.py:33
+msgid "Surname"
+msgstr ""
+
+#: .\employees\models.py:34
+msgid "Email"
+msgstr ""
+
+#: .\employees\models.py:39
+msgid "Status"
+msgstr ""
+
+#: .\employees\models.py:45
+msgid "Employee"
+msgstr ""
+
+#: .\employees\models.py:46
+msgid "Employees"
+msgstr ""
+
+#: .\employees\models.py:50
+msgid "Admin"
+msgstr ""
+
+#: .\employees\models.py:51 .\employees\models.py:69
+msgid "User"
+msgstr ""
+
+#: .\employees\models.py:53
+msgid "Role"
+msgstr ""
+
+#: .\employees\models.py:59
+msgid "Groups"
+msgstr ""
+
+#: .\employees\models.py:65
+msgid "User Permissions"
+msgstr ""
+
+#: .\employees\models.py:70
+msgid "Users"
+msgstr ""
+
+#: .\employees\models.py:73
+msgid "IP Address"
+msgstr ""
+
+#: .\employees\models.py:79
+msgid "Black Listed IP Address"
+msgstr ""
+
+#: .\employees\models.py:80
+msgid "Black Listed IP Addresses"
+msgstr ""

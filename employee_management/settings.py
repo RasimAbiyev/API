@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
+import logging
 from pathlib import Path
 from celery import Celery
 from datetime import timedelta
 from celery.schedules import crontab
+from django.utils.translation import gettext_lazy as _
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -143,18 +145,21 @@ CELERY_BEAT_SCHEDULE = {
 
 # Internationalization and localization
 # LANGUAGE_CODE = 'az'
-LANGUAGE_CODE = 'en-us'
-
 LANGUAGES = [
-    ('az', 'Azerbaijani'),
-    ('en', 'English'),
+    ('en', _('English')),
+    ('az', _('Azerbaijani')),
 ]
 
-LOCALE_PATHS = [os.path.join(BASE_DIR, 'locale')]
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
 
+LANGUAGE_CODE = 'en'
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Baku'
+
 USE_I18N = True
+
 USE_TZ = True
 
 # Static files
@@ -169,3 +174,23 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
+
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'debug.log',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
+}
