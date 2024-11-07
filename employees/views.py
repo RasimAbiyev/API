@@ -36,9 +36,6 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         translation.deactivate()
         return response
 
-# Eyni prosesi PositionViewSet üçün də tətbiq edə bilərsiniz
-
-
     def get_permissions(self):
         if self.action == 'destroy':
             self.permission_classes = [IsAdminUser]
@@ -81,3 +78,9 @@ class ApiRootView(generics.GenericAPIView):
             'positions': reverse('position-list', request=request),
             'employees': reverse('employee-list', request=request),
         })
+    
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def send_notifications(request):
+    return HttpResponse("Notifications sent!")

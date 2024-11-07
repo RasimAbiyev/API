@@ -139,7 +139,9 @@ broker_connection_retry_on_startup = True
 CELERY_BEAT_SCHEDULE = {
     'send-notifications-every-day': {
         'task': 'employees.tasks.send_notifications',
-        'schedule': crontab(minute='*/1'),
+        # 'schedule': crontab(minute='*/1'),
+        'schedule': crontab(hour=0, minute=1),
+
     },
 }
 
@@ -164,6 +166,7 @@ USE_TZ = True
 
 # Static files
 STATIC_URL = 'static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

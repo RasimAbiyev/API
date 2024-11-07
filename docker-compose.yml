@@ -1,17 +1,6 @@
 version: '3.9'
 
 services:
-  db:
-    image: postgres:13
-    environment:
-      POSTGRES_DB: employee_management
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app_network
-
   web:
     build: .
     command: python manage.py runserver 0.0.0.0:8000
@@ -25,11 +14,13 @@ services:
       - "8000:8000"
     depends_on:
       - db
+      - redis
     networks:
       - app_network
 
   redis:
-    image: redis:alpine
+    image: redis:latest
+    container_name: redis
     ports:
       - "6379:6379"
     networks:
@@ -54,8 +45,19 @@ services:
     restart: always
     ports:
       - "8080:8080"
-    depends_on:
-      - db
+    networks:
+      - app_network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: employee_management
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     networks:
       - app_network
 
