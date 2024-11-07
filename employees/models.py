@@ -20,8 +20,7 @@ class Position(models.Model):
     salary = models.DecimalField(_('Salary'), max_digits=10, decimal_places=2)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    department = models.ForeignKey(Department, verbose_name=_("Department"), on_delete=models.CASCADE, null=False)
-    salary = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    department = models.ForeignKey(Department, verbose_name=_("Department"), on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
@@ -39,7 +38,6 @@ class Employee(models.Model):
     department = models.ForeignKey(Department, verbose_name=_("Department"), on_delete=models.CASCADE)
     position = models.ForeignKey(Position, verbose_name=_("Position"), on_delete=models.CASCADE)
     status = models.CharField(_('Status'), max_length=50)
-    position = models.ForeignKey(Position, on_delete=models.SET_NULL, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name} {self.surname}"
